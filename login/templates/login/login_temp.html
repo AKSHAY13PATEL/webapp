@@ -29,7 +29,7 @@
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin" method="post" action="{% url 'register:login' %}">
+            <form class="form-signin" method="post" action="{% url 'reg:verify' %}">
                 {% csrf_token %}
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="text" id="inputEmail" class="form-control" placeholder="Username" name="uname" required autofocus>
@@ -41,7 +41,7 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
             </form><!-- /form -->
-            <a href="{% url 'register:register' %}" class="forgot-password">
+            <a href="{% url 'reg:register' %}" class="forgot-password">
                 Create Account
             </a>
             <a href="#" class="forgot-password">

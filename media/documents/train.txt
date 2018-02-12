@@ -1,0 +1,104 @@
+Defination : Online train ticket booking system
+
+User identification : 
+	client
+	Admin
+	TC
+	Visitor
+	
+Function :
+
+1 Client : 
+	User registration
+	log in
+	Fill the details
+	Book ticket5
+	Make payment
+	cancel booking
+	Give feedback about services
+	
+	
+2 Admin : 
+	Update time table
+	Update Fair
+	Manage user
+	
+3 TC : 
+	Log in
+	Get Booking list
+	//Get train schedule
+	
+Scenario
+
+1.User can register themselves for online ticket booking
+	a. Clickbew registration tab
+	b. Enter appropriate details in provided box.
+	c. Press submit button
+
+2.All registered user can login intosystem
+	a. Click on login button
+	b. Enter required credentials
+	c. Press submit button
+
+3.All registered user can give feedback about the system
+	a. Click on feedback button
+	b. Enter your feeedback in provided textbox.
+	c.press submit button
+
+4.All registered user can book ticket 
+	a. Select the tab for book ticket
+	b. Fill up the details into provided form 
+	c. Submit your details
+	d. Make payment of your ticket by using appropriate option for payment
+
+5.User can cancel ticket
+	a.Select cancel ticket tab
+	b.Select the ticket which do you want to cancel
+	c.Confirm the cancelation
+	d.press submit button
+
+6.Admin can login to system
+	a. Click on login button
+	b. Enter required credentials
+	c. Press submit button
+	
+7.Admin can manage users
+	--create
+	a.click on manage user tab
+	b.click on add user
+	c.validate user credentials
+	d.select create user button.
+	e.assign some random password
+	
+	--update
+	a.Click on manage user tab
+	b.Write user name in search bar in order to serch for the user
+	c.select appropriate user and update information provided by user
+	d.Click on save button
+	
+	--delete
+	a.click on manage tab
+	b.write user name in serch box for searching that user
+	c.select user who are suppossed to remove
+	d.click save button
+	
+8.admin manage time table of train
+	a. click on manage train time table tab
+	b.provide the details of updated train time table
+	c. click save button.
+
+9.admin manage fair for ticket
+	a. click fair management tab
+	b. provide updated details of fair
+	c. click save button
+
+10.TC can login to system
+	a. Click on login button
+	b. Enter required credentials
+	c. Press submit button 
+	
+11.tc can get booking list of train
+	a.select get booking list tab
+	b.provide train no. for getting booking list
+	c.press submit button
+	d.print the booking list which has been provided by the system
