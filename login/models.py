@@ -2,6 +2,18 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+class RepoData(models.Model):
+    description =models.CharField(max_length=255,blank=True)
+    repo_name = models.CharField(max_length=50,blank=True)
+
+def user_directory_path(instance,filename):
+    return 'documents/{0}/{1}'.format(instance.repository,filename)
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to=user_directory_path)
+    repository = models.CharField(max_length=20 , blank=True)
+
 class AuthGroup(models.Model):
     id = models.IntegerField(primary_key=True)  # AutoField?
     name = models.CharField(unique=True, max_length=80)
@@ -121,7 +133,3 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Document(models.Model):
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)

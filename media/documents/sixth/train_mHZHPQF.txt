@@ -34,33 +34,42 @@ Scenario
 	a. Clickbew registration tab
 	b. Enter appropriate details in provided box.
 	c. Press submit button
+	Failure-User is redirected to login page for un-appropriate details entered.
 
 2.All registered user can login intosystem
 	a. Click on login button
 	b. Enter required credentials
 	c. Press submit button
+	Failure- User is redirected to login page for un-appropriate details entered.
 
 3.All registered user can give feedback about the system
 	a. Click on feedback button
 	b. Enter your feeedback in provided textbox.
 	c.press submit button
+	Failure-It gives alert ‘something went wrong’ if feedback is not submitted.
 
 4.All registered user can book ticket 
 	a. Select the tab for book ticket
 	b. Fill up the details into provided form 
 	c. Submit your details
 	d. Make payment of your ticket by using appropriate option for payment
+	Failure-User is redirected to home page with message "Booking has not been completed" if system fails to book ticket
+			User is redirected to payment page if payment has been denied by bank with messge "Make payment with different payment option"
 
 5.User can cancel ticket
 	a.Select cancel ticket tab
 	b.Select the ticket which do you want to cancel
 	c.Confirm the cancelation
 	d.press submit button
-
-6.Admin can login to system
+	Failure-If user has not booked any ticket
+			If train has benn already departured from the starting station.
+			Then it redirect it to home page with message you cant cancel ticket.
+			
+6.Admin can login to system4
 	a. Click on login button
 	b. Enter required credentials
 	c. Press submit button
+	Failure- User is redirected to login page for un-appropriate details entered.
 	
 7.Admin can manage users
 	--create
@@ -69,36 +78,44 @@ Scenario
 	c.validate user credentials
 	d.select create user button.
 	e.assign some random password
+	Failure- It gives error message displaying "User creation failed".
 	
 	--update
 	a.Click on manage user tab
 	b.Write user name in search bar in order to serch for the user
 	c.select appropriate user and update information provided by user
 	d.Click on save button
-	
+	Failure- It gives error message displaying "Can't update details".
+
 	--delete
 	a.click on manage tab
 	b.write user name in serch box for searching that user
 	c.select user who are suppossed to remove
 	d.click save button
-	
+	Failure-It gives error message displaying "User deletion failed".
+ 
 8.admin manage time table of train
 	a. click on manage train time table tab
 	b.provide the details of updated train time table
 	c. click save button.
-
+	Failure - System has been currently busy,try after sometimes.
+	
 9.admin manage fair for ticket
 	a. click fair management tab
 	b. provide updated details of fair
 	c. click save button
-
+	Failure- System has been currently busy,try after sometimes.
+	
 10.TC can login to system
 	a. Click on login button
 	b. Enter required credentials
 	c. Press submit button 
+	Failure- User is redirected to login page for un-appropriate details entered.
 	
 11.tc can get booking list of train
 	a.select get booking list tab
 	b.provide train no. for getting booking list
 	c.press submit button
-	d.print the booking list which has been provided by the system
+	d.print the booking list which has been provided by the system.
+	Failure - It shows invalid detail if train details is wrong.
+				It display message "Invalid detail"

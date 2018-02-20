@@ -1,25 +1,57 @@
 from django.shortcuts import render,redirect
 from django.views import generic
-from django.contrib.auth.models import User
-from django import forms
-from django.views.generic import View
+from django.views.generic import View, FormView
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from .models import Document
-from .forms import DocumentForm
+from .models import Document,RepoData
+from .forms import DocumentForm,UserForm,RepoForm
+import os
+
+def index(request):
+    repo_list = RepoData.objects.all()
+    return render(request, 'login/index_temp.html', {'repo_list': repo_list})
+
+def RepoFormView(request):
+
+    if request.method == 'POST':
+        form = RepoForm(request.POST)
+        if form.is_valid():
+            dirname = form.cleaned_data['repo_name']
+            os.mkdir(os.path.join('media\documents', dirname))
+            form.save()
+
+            return redirect('reg:index')
+
+        else:
+            return render(request,'login/index_temp.html',{'msg':"Repository has not been created"})
+    else:
+        form =RepoForm()
+        return render(request, 'login/repo_temp.html', {'form':form})
 
 
-class index(generic.TemplateView):
-    template_name = 'login/index_temp.html'
+def RepoDetail(request,name_repo):
+    documents = Document.objects.all()
+    return render(request,'login/repo_detail_temp.html',{'documents' : documents, 'name_repo' : name_repo})
 
-class UserForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput)
 
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
+
+
+def model_form_upload(request,name_repo):
+
+
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            form.save()
+            return redirect('reg:index')
+    else:
+        form = DocumentForm()
+    return render(request, 'login/model_form_upload.html', {
+        'form': form
+    })
 
 class UserFormView(View):
     form_class=UserForm
@@ -80,15 +112,3 @@ def simple_upload(request):
         })
     return render(request, 'login/simple_upload.html')
 
-
-def model_form_upload(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('reg:index')
-    else:
-        form = DocumentForm()
-    return render(request, 'login/model_form_upload.html', {
-        'form': form
-    })
