@@ -8,6 +8,7 @@ from django.conf import settings
 from .models import Document,RepoData
 from .forms import DocumentForm,UserForm,RepoForm
 import os
+from git import Repo
 
 def index(request):
     repo_list = RepoData.objects.all()
@@ -20,6 +21,16 @@ def RepoFormView(request):
         if form.is_valid():
             dirname = form.cleaned_data['repo_name']
             os.mkdir(os.path.join('media\documents', dirname))
+
+            repo_dir = os.path.join("C:\\Users\\Akshay Patel\\Desktop\\webapp\\media\\documents\\", dirname )
+            file_name = os.path.join(repo_dir, 'new-file')
+            r = Repo.init(repo_dir)
+
+            open(file_name, 'wb').close()
+            r.index.add([file_name])
+            r.index.commit("initial commit")
+
+
             form.save()
 
             return redirect('reg:index')
@@ -32,9 +43,27 @@ def RepoFormView(request):
 
 
 def RepoDetail(request,name_repo):
-    documents = Document.objects.all()
-    return render(request,'login/repo_detail_temp.html',{'documents' : documents, 'name_repo' : name_repo})
 
+    if request.method == 'GET':
+        documents = Document.objects.all()
+        repo = Repo("C:\\Users\\Akshay Patel\\Desktop\\webapp\\media\\documents\\"+ name_repo)
+        assert not repo.bare
+        assert not repo.is_dirty()
+        untracked_list = repo.untracked_files
+        return render(request,'login/repo_detail_temp.html',{'documents' : documents, 'name_repo' : name_repo , 'untracked_list' : untracked_list})
+    else:
+        documents = Document.objects.all()
+        repo = Repo("C:\\Users\\Akshay Patel\\Desktop\\webapp\\media\\documents\\"+ name_repo)
+        assert not repo.bare
+        assert not repo.is_dirty()
+        untracked_list = repo.untracked_files
+        for file in untracked_list:
+            repo.index.add([file])
+            repo.index.commit("This is commit for file :" + file)
+
+        assert not repo.is_dirty()
+        untracked_list = repo.untracked_files
+        return render(request,'login/repo_detail_temp.html', {'untracked_list' : untracked_list , 'documents' : documents , 'name_repo' : name_repo})
 
 
 
@@ -50,7 +79,7 @@ def model_form_upload(request,name_repo):
     else:
         form = DocumentForm()
     return render(request, 'login/model_form_upload.html', {
-        'form': form
+        'form': form , 'name_repo' : name_repo
     })
 
 class UserFormView(View):

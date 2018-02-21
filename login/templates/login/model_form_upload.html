@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block body %}
+    <h1>Your Current Repository is : {{ name_repo }}</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

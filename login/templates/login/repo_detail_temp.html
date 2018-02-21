@@ -8,6 +8,7 @@
     <li>
       <a href="{% url 'reg:file_upload' name_repo %}">Model Form Upload</a>
     </li>
+
   </ul>
 
   <p>Uploaded files:</p>
@@ -16,9 +17,23 @@
       <li>
             {% if obj.repository == name_repo %}
                 <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                <small>(Repository Name : {{ obj.repository }})</small>
+                <small>(Repository Name : {{ obj.repository }} )</small>
             {% endif %}
       </li>
     {% endfor %}
   </ul>
+
+    <p>Untracked files (Not yet Commited):</p>
+  <ul>
+    {% for obj in untracked_list %}
+      <li>
+            <p>{{ obj }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+    <form action="{% url 'reg:repo_detail' name_repo%}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="submit" value="Commit Changes">
+    </form>
 {% endblock %}
+
